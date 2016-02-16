@@ -23,7 +23,7 @@ function do_sql($db, $query, $args=array(), $affected=false) {
 }
 
 function sanatize_cdr($cdr) {
-  $cdr = json_decode($cdr);
+  $cdr = json_decode($cdr, true);
 
   $blacklist = array('sip_from_uri', 'sip_from_host', 'sip_call_id', 'sip_local_network_addr',
                      'sip_network_ip', 'sip_received_ip', 'sip_invite_record_route', 'sip_full_via',
