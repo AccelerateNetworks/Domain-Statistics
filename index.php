@@ -49,7 +49,7 @@ require_once "resources/paging.php";
 			foreach(do_sql($db, "SELECT * FROM cdr_api_keys WHERE domain_uuid = :domain_uuid", array(':domain_uuid' => $domain_uuid)) as $row) {
 				echo "<td class=\"$rowclass\">".$row['name']."</td>";
 				echo "<td class=\"$rowclass\">(not available)</td>";
-				echo "<td class=\"$rowclass\">".$row['enabled']."</td>";
+				echo "<td class=\"$rowclass\">".($row['enabled'] ? "Yes" : "No")."</td>";
 				echo "<td class=\"$rowclass\">[ <a href=\"#\">edit</a> ] [ <a href=\"#\">delete</a> ]</td>";
 				echo "</tr>";
 				if($rowclass == "row_style0") {
