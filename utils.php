@@ -46,7 +46,7 @@ function sanatize_cdr($cdr) {
       }
     } else {
       unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile']['network_addr']);
-      unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile']['chan_name'])
+      unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile']['chan_name']);
     }
   }
   return $cdr;
