@@ -50,7 +50,7 @@ require_once "resources/paging.php";
 				echo "<td class=\"$rowclass\">".row['name']."</td>";
 				echo "<td class=\"$rowclass\">(not available)</td>";
 				echo "<td class=\"$rowclass\">".$row['enabled']."</td>";
-				echo "<td class=\"$rowclass\">[ <a href=\"#\">edit</a> ] [ <]</td>";
+				echo "<td class=\"$rowclass\">[ <a href=\"#\">edit</a> ] [ <a href=\"#\">delete</a> ]</td>";
 				echo "</tr>";
 				if($rowclass == "row_style0") {
 					$rowclass = "row_style1";
