@@ -21,7 +21,7 @@ if(isset($_REQUEST['limit'])) {
   $args[':limit'] = $_REQUEST['limit'];
 }
 
-$results = do_sql($db, "SELECT v_xml_cdr.json FROM v_xml_cdr JOIN cdr_api_keys ON cdr_api_keys.domain_uuid = v_xml_cdr.domain_uuid WHERE cdr_api_keys.key = :key LIMIT :limit", $args);
+$results = do_sql($db, "SELECT v_xml_cdr.json FROM v_xml_cdr JOIN cdr_api_keys ON cdr_api_keys.domain_uuid = v_xml_cdr.domain_uuid WHERE cdr_api_keys.key = :key AND v_xml_cdr.direction = 'inbound' LIMIT :limit", $args);
 
 $out = [];
 foreach($results as $result) {
