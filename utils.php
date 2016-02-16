@@ -36,12 +36,14 @@ function sanatize_cdr($cdr) {
     unset($cdr['variables'][$key]);
   }
 
-  foreach($cdr['callflow'] as $i => $callflow)
-  unset($cdr['callflow'][$i]['caller_profile']['network-addr']);
-  unset($cdr['callflow'][$i]['caller_profile']['chan_name']);
-  foreach($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'] as $j => $origination_caller_profile) {
-    unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'][$j]['network_addr']);
-    unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'][$j]['chan_name']);
+  foreach($cdr['callflow'] as $i => $callflow) {
+    unset($cdr['callflow'][$i]['caller_profile']['network-addr']);
+
+    unset($cdr['callflow'][$i]['caller_profile']['chan_name']);
+    foreach($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'] as $j => $origination_caller_profile) {
+      unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'][$j]['network_addr']);
+      unset($cdr['callflow'][$i]['caller_profile']['origination']['origination_caller_profile'][$j]['chan_name']);
+    }
   }
   return $cdr;
 }
