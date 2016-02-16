@@ -30,7 +30,7 @@ function sanatize_cdr($cdr) {
                      'sip_full_from', 'sip_full_to', 'sip_req_uri', 'sip_req_host', 'sip_to_uri',
                      'sip_to_host', 'sip_contact_uri', 'sip_contact_host', 'sip_via_host',
                      'switch_r_sdp', 'local_media_ip', 'advertised_media_ip', 'remote_media_ip',
-                      'channel_name');
+                      'channel_name', 'sip_reinvite_sdp');
 
   foreach($blacklist as $key) {
     unset($cdr['variables'][$key]);
