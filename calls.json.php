@@ -25,7 +25,7 @@ $results = do_sql($db, "SELECT v_xml_cdr.json FROM v_xml_cdr JOIN cdr_api_keys O
 
 $out = [];
 foreach($results as $result) {
-  $out[] = $result['json'];
+  $out[] = json_decode($result['json']);
 }
 
 echo(json_encode($out));
