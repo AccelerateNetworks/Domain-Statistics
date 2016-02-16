@@ -5,7 +5,6 @@
 */
 require_once "root.php";
 require_once "resources/require.php";
-require_once "resources/check_auth.php";
 require_once "utils.php";
 
 if(!isset($_REQUEST['key'])) {
