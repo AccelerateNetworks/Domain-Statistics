@@ -29,17 +29,18 @@ function sanatize_cdr($cdr) {
                      'sip_network_ip', 'sip_received_ip', 'sip_invite_record_route', 'sip_full_via',
                      'sip_full_from', 'sip_full_to', 'sip_req_uri', 'sip_req_host', 'sip_to_uri',
                      'sip_to_host', 'sip_contact_uri', 'sip_contact_host', 'sip_via_host',
-                     'switch_r_sdp', 'local_media_ip', 'advertised_media_ip', 'remote_media_ip');
+                     'switch_r_sdp', 'local_media_ip', 'advertised_media_ip', 'remote_media_ip',
+                      'channel_name');
 
   foreach($blacklist as $key) {
     unset($cdr['variables'][$key]);
   }
 
-  foreach($cdr['callflow'] as $callflow)
-  unset($callflow['caller_profile']['network-addr']);
-  foreach($callflow['caller_profile']['origination']['origination_caller_profile'] as $origination_caller_profile) {
-    unset($origination_caller_profile['network_addr']);
-    unset($origination_caller_profile['chan_name']);
+  foreach($cdr['callflow'] as $i => $callflow)
+  unset($cdr['callflow'][$i]['caller_profile']['network-addr']);
+  foreach($callflow['caller_profile']['origination']['origination_caller_profile'] as $j => $origination_caller_profile) {
+    unset($callflow['caller_profile']['origination']['origination_caller_profile'][$j]['network_addr']);
+    unset($callflow['caller_profile']['origination']['origination_caller_profile'][$j]['chan_name']);
   }
   return $cdr;
 }
