@@ -13,7 +13,7 @@ if(!isset($_REQUEST['key'])) {
 $domain_name = do_sql($db, "SELECT v_domains.domain_name FROM v_domains, cdr_api_keys WHERE cdr_api_keys.domain_uuid = v_domains.domain_uuid AND cdr_api_keys.key = :key",
   array(':key' => $_REQUEST['key']));
 
-if(count(domain_name) != 1) {
+if(count($domain_name) != 1) {
   die(json_encode(array("success" => false, "reason" => "Invalid API Key")));
 }
 
