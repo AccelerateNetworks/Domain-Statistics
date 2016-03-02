@@ -7,6 +7,8 @@ require_once "root.php";
 require_once "resources/require.php";
 require_once "utils.php";
 
+header("Content-Type: application/json");
+
 if(!isset($_REQUEST['key'])) {
   die(json_encode(array("success" => false, "reason" => "No API key specified")));
 }
