@@ -33,7 +33,7 @@ $xml = new SimpleXMLElement($xml_response);
 $out = [];
 
 foreach($xml->registrations->registration as $row) {
-  if($row['sip-auth-realm'] == $domain_name[0]['domain_name']){
+  if($row->{'sip-auth-realm'} == $domain_name[0]['domain_name']){
     $out[] = $row;
   }
 }
