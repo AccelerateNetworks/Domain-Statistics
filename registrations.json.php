@@ -21,7 +21,7 @@ if(count($domain_name) != 1) {
 
 $fp = event_socket_create($_SESSION['event_socket_ip_address'], $_SESSION['event_socket_port'], $_SESSION['event_socket_password']);
 if(!$fp) {
-  die(json_encode(array("success" => failse, "reason" => "Failed to connect to freeswitch")));
+  die(json_encode(array("success" => false, "reason" => "Failed to connect to freeswitch")));
 }
 
 $cmd = "api sofia xmlstatus profile internal reg";
