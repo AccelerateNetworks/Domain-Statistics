@@ -1,13 +1,13 @@
 <?php
 //application details
-$apps[$x]['name'] = "CDR API";
-$apps[$x]['uuid'] = "4580b6da-3c91-4537-ab67-626ae4716e95";
+$apps[$x]['name'] = "Domain Statistics";
+$apps[$x]['uuid'] = "ab583432-192d-4287-a4b1-7aa5daa580a0";
 $apps[$x]['category'] = "App";
 $apps[$x]['subcategory'] = "";
 $apps[$x]['version'] = "0.1";
 $apps[$x]['license'] = "GNU General Public License v3";
-$apps[$x]['url'] = "https://git.callpipe.com/fusiobpbx/cdr-api";
-$apps[$x]['description']['en-us'] = "A module to emulate expose the CDR via API";
+$apps[$x]['url'] = "https://git.callpipe.com/fusiobpbx/domain-statistics";
+$apps[$x]['description']['en-us'] = "A module to get call statistics for each domain";
 $apps[$x]['description']['es-cl'] = "";
 $apps[$x]['description']['de-de'] = "";
 $apps[$x]['description']['de-ch'] = "";

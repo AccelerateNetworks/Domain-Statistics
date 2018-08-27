@@ -38,10 +38,10 @@ require_once "resources/paging.php";
 			<table class="tr_hover" width="100%" border="0" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Last Access</th>
-						<th>Enabled</th>
-						<th>Actions</th>
+						<th>Domain</th>
+						<th>Inbound</th>
+						<th>Outbound</th>
+						<th>Total</th>
 					</tr>
 				</thead>
 			<?php
