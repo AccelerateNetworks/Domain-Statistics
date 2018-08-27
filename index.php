@@ -24,10 +24,7 @@ require_once "resources/paging.php";
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<b>CDR API</b>
-					</td>
-					<td width="30%" align="right" valign="top">
-						<a href="api_key_edit.php" class="btn">New</a>
+						<b>Domain Statistics</b>
 					</td>
 				</tr>
 			</table>
