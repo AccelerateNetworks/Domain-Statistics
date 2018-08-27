@@ -39,18 +39,17 @@ require_once "resources/paging.php";
 				<thead>
 					<tr>
 						<th>Domain</th>
-						<th>Inbound</th>
-						<th>Outbound</th>
+						<th>Type</th>
+						<th>Total Seconds</th>
 						<th>Total</th>
 					</tr>
 				</thead>
 			<?php
 			$rowclass = "row_style0";
-			foreach(do_sql($db, "SELECT * FROM cdr_api_keys WHERE domain_uuid = :domain_uuid", array(':domain_uuid' => $domain_uuid)) as $row) {
-				echo "<td class=\"$rowclass\">".$row['name']."</td>";
-				echo "<td class=\"$rowclass\">(not available)</td>";
-				echo "<td class=\"$rowclass\">".($row['enabled'] ? "Yes" : "No")."</td>";
-				echo "<td class=\"$rowclass\">[ <a href=\"#\">edit</a> ] [ <a href=\"#\">delete</a> ]</td>";
+			foreach(do_sql($db, "SELECT v_domains.domain_name, v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr, v_domains WHERE v_domains.domain_uuid = v_xml_cdr.domain_uuid AND v_xml_cdr.start_stamp > date_trunc('day', NOW() - interval '1 month') GROUP BY v_domains.domain_name, v_xml_cdr.direction;", array(':domain_uuid' => $domain_uuid)) as $row) {
+				echo "<td class=\"$rowclass\">".$row['domain_name']."</td>";
+				echo "<td class=\"$rowclass\">".$row['direction']."</td>";
+				echo "<td class=\"$rowclass\">".$row['sum']."</td>";
 				echo "</tr>";
 				if($rowclass == "row_style0") {
 					$rowclass = "row_style1";
