@@ -17,3 +17,8 @@ $apps[$x]['description']['fr-ca'] = "";
 $apps[$x]['description']['fr-ch'] = "";
 $apps[$x]['description']['pt-pt'] = "";
 $apps[$x]['description']['pt-br'] = "";
+
+//permission details
+$y=0;
+$apps[$x]['permissions'][$y]['name'] = "domain_statistics";
+$apps[$x]['permissions'][$y]['groups'][] = "superadmin";
