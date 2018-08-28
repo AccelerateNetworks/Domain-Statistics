@@ -17,6 +17,14 @@ $text = $language->get();
 // additional includes
 require_once "resources/header.php";
 require_once "resources/paging.php";
+//check permissions
+if (permission_exists('domain_statistics')) {
+	//access granted
+}
+else {
+	echo "access denied";
+	exit;
+}
 ?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -25,6 +33,7 @@ require_once "resources/paging.php";
 				<tr>
 					<td>
 						<b>Domain Statistics</b>
+						<a href='export.php' class="btn">Export</a>
 					</td>
 				</tr>
 			</table>
