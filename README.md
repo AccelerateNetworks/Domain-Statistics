@@ -2,6 +2,8 @@
 
 Basic statistics about each domain, including inbound, internal & outbound calls over the last 30 days, average cost (adjustable by changing the per minute cost in index.php labeled $costpermin), and the ability to export all this data to a CSV so you can open it in your favorite spreadsheet software!
 
+![Image of Domain Statistics](Domain-Statistics-Overview.png)
+
 ## Installation
 Clone this into the working path after SSHing/Moshing into your server:
 
