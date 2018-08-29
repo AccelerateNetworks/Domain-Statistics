@@ -33,7 +33,6 @@ else {
 				<tr>
 					<td>
 						<b>Domain Statistics</b>
-						<a href='export.php' class="btn">Export</a>
 					</td>
 				</tr>
 			</table>
@@ -45,16 +44,45 @@ else {
 				<thead>
 					<tr>
 						<th>Domain</th>
-						<th>Type</th>
-						<th>Total Seconds</th>
+						<th>Local Minutes Used</th>
+						<th>Inbound Minutes Used</th>
+						<th>Outbound Minutes</th>
+						<th>Total Inbound/Outbound Minutes</th>
+						<th>Total Cost</th>
 					</tr>
 				</thead>
 			<?php
+			$costpermin = 0.0069;
 			$rowclass = "row_style0";
-			foreach(do_sql($db, "SELECT v_domains.domain_name, v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr, v_domains WHERE v_domains.domain_uuid = v_xml_cdr.domain_uuid AND v_xml_cdr.start_stamp > date_trunc('day', NOW() - interval '1 month') GROUP BY v_domains.domain_name, v_xml_cdr.direction;")  as $row) {
-				echo "<td class=\"$rowclass\">".$row['domain_name']."</td>";
-				echo "<td class=\"$rowclass\">".$row['direction']."</td>";
-				echo "<td class=\"$rowclass\">".$row['sum']."</td>";
+			foreach(do_sql($db, "SELECT domain_uuid, domain_name FROM v_domains;") as $domains) {
+				$domain_uuid = $domains['domain_uuid'];
+				$domain_calltime = array();
+				foreach(do_sql($db, "SELECT v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr WHERE v_xml_cdr.domain_uuid = '$domain_uuid' AND v_xml_cdr.start_stamp > date_trunc('day', NOW() - interval '1 month') GROUP BY v_xml_cdr.direction;") as $domainrow) {
+					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
+					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
+					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
+
+				}
+				$totalinout = $domain_calltime['inbound'] + $domain_calltime['outbound'];
+				$totalcost = $totalinout * $costpermin;
+				echo "<td class=\"$rowclass\">".$domains['domain_name']."</td>";
+				if(isset($domain_calltime['local'])){
+					echo "<td class=\"$rowclass\">".$domain_calltime['local']."</td>";
+				} else {
+					echo "<td class=\"$rowclass\">0</td>";
+				}
+				if(isset($domain_calltime['inbound'])){
+					echo "<td class=\"$rowclass\">".$domain_calltime['inbound']."</td>";
+				} else {
+					echo "<td class=\"$rowclass\">0</td>";
+				}
+				if(isset($domain_calltime['outbound'])){
+					echo "<td class=\"$rowclass\">".$domain_calltime['outbound']."</td>";
+				} else {
+					echo "<td class=\"$rowclass\">0</td>";
+				}
+				echo "<td class=\"$rowclass\">".$totalinout."</td>";
+				echo "<td class=\"$rowclass\">".$totalcost."</td>";
 				echo "</tr>";
 				if($rowclass == "row_style0") {
 					$rowclass = "row_style1";
@@ -67,4 +95,5 @@ else {
 		</td>
 	</tr>
 </table>
+<a href='export.php' class="btn" type="button">Export as CSV</a>
 <?php require "footer.php";
