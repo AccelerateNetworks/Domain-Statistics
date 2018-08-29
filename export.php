@@ -49,6 +49,11 @@ foreach(do_sql($db, "SELECT domain_uuid, domain_name FROM v_domains;") as $domai
   }
   $totalinout = $domain_calltime['inbound'] + $domain_calltime['outbound'];
   $totalcost = $totalinout * $costpermin;
-  fputcsv($output, array($domains['domain_name'], $domain_calltime['local'], $domain_calltime['inbound'], $domain_calltime['outbound'],$totalinout, $totalcost)); // here you can change delimiter/enclosure
+  fputcsv($output, array($domains['domain_name'],
+                    round($domain_calltime['local'], 2),
+                    round($domain_calltime['inbound'], 2),
+                    round($domain_calltime['outbound'], 2),
+                    round($totalinout, 2),
+                    round($totalcost, 2))); // here you can change delimiter/enclosure
 }
 fclose($output);

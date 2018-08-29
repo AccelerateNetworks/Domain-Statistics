@@ -82,22 +82,22 @@ else {
 				$totalcost = $totalinout * $costpermin;
 				echo "<td class=\"$rowclass\">".$domains['domain_name']."</td>";
 				if(isset($domain_calltime['local'])){
-					echo "<td class=\"$rowclass\">".$domain_calltime['local']."</td>";
+					echo "<td class=\"$rowclass\">".round($domain_calltime['local'], 2)."</td>";
 				} else {
 					echo "<td class=\"$rowclass\">0</td>";
 				}
 				if(isset($domain_calltime['inbound'])){
-					echo "<td class=\"$rowclass\">".$domain_calltime['inbound']."</td>";
+					echo "<td class=\"$rowclass\">".round($domain_calltime['inbound'], 2)."</td>";
 				} else {
 					echo "<td class=\"$rowclass\">0</td>";
 				}
 				if(isset($domain_calltime['outbound'])){
-					echo "<td class=\"$rowclass\">".$domain_calltime['outbound']."</td>";
+					echo "<td class=\"$rowclass\">".round($domain_calltime['outbound'], 2)."</td>";
 				} else {
 					echo "<td class=\"$rowclass\">0</td>";
 				}
-				echo "<td class=\"$rowclass\">".$totalinout."</td>";
-				echo "<td class=\"$rowclass\">".$totalcost."</td>";
+				echo "<td class=\"$rowclass\">".round($totalinout, 2)."</td>";
+				echo "<td class=\"$rowclass\">".round($totalcost, 2)."</td>";
 				echo "</tr>";
 				if($rowclass == "row_style0") {
 					$rowclass = "row_style1";
