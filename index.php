@@ -1,22 +1,13 @@
 <?php
 /*
  * Statistics on phone calls and the cost of each customer domain.
- * Copyright (c) 2018 Dan Ryan
+ * Copyright (c) 2018 Accelerate Networks
  *
  * This file is part of Domain Statistics.
  *
- * Domain Statistics is free software; you can redistribute it
- * and/or modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * Domain Statistics is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Domain Statistics. If not, see <https://www.gnu.org/licenses/>.
+ * The Domain Statistics program is covered by the license in the accompanying
+ * file named "LICENSE".  Use of the mrouted program represents acceptance of
+ * the terms and conditions listed in that file.
  */
 
 require_once "root.php";
