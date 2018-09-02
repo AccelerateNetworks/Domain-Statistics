@@ -5,6 +5,8 @@ Basic statistics about each domain, including inbound, internal & outbound calls
 ![Image of Domain Statistics](Domain-Statistics-Overview.png)
 
 ## Installation
+This was written and tested with FusionPBX 4.5.1 (current master) and will likely work on newer or slightly older versions of FusionPBX.
+
 Clone this into the working path after SSHing/Moshing into your server:
 
 ```
