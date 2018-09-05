@@ -48,6 +48,7 @@ else {
 				<tr>
 					<td>
 						<b>Domain Statistics</b>
+						<a href='export.php' class="btn" type="button" style="float: right;">Export as CSV</a>
 					</td>
 				</tr>
 			</table>
@@ -110,5 +111,4 @@ else {
 		</td>
 	</tr>
 </table>
-<a href='export.php' class="btn" type="button">Export as CSV</a>
 <?php require "footer.php";
