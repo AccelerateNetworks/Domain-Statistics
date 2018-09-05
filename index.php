@@ -1,21 +1,21 @@
 <?php
 /*
  * Statistics on phone calls and the cost of each customer domain.
- * Copyright (c) 2018 Dan Ryan
+ * Copyright (c) 2018 Accelerate Networks
  *
  * This file is part of Domain Statistics.
  *
  * Domain Statistics is free software; you can redistribute it
- * and/or modify it under the terms of the GNU Lesser General Public
+ * and/or modify it under the terms of the GNU Affero General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
  * Domain Statistics is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * Affero General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
+ * You should have received a copy of the GNU Affero General Public
  * License along with Domain Statistics. If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -41,14 +41,32 @@ else {
 	exit;
 }
 ?>
+<script type="text/javascript">
+</script>
+
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<b>Domain Statistics</b>
-						<a href='export.php' class="btn" type="button" style="float: right;">Export as CSV</a>
+						<tr>
+							<b>Domain Statistics</b>
+							<a href='export.php' class="btn" type="button" style="float: right;">Export as CSV</a>
+							<?php
+							//get http post variables and set them to php variables
+							if (count($_POST) > 0) {
+								//set variables from http values
+									$costpermin = check_str($_POST["costpermin"]);
+							} else {
+								$costpermin = 0.0069;
+							}
+							echo "<form method='post' name='frm' action=''>";
+							echo "	<input class='formfld' type='text' name='costpermin' maxlength='255' style='float: right;'' value=\"".escape($costpermin)."\" required='required'>";
+							echo "</form>"
+							?>
+							<p style="float: right;"><strong>Cost per minute:</strong></p>
+						</tr>
 					</td>
 				</tr>
 			</table>
@@ -68,7 +86,7 @@ else {
 					</tr>
 				</thead>
 			<?php
-			$costpermin = 0.0069;
+
 			$rowclass = "row_style0";
 			foreach(do_sql($db, "SELECT domain_uuid, domain_name FROM v_domains;") as $domains) {
 				$domain_uuid = $domains['domain_uuid'];
