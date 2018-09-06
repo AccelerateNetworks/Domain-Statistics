@@ -22,9 +22,7 @@ At this point, Apps => Domain Statistics should appear after you log out and log
 Thanks to the FusionPBX permissions model, one can easily make a restricted accounting user that has very limited ability to break things or get lost in say gateway config or other users voicemail. One key thing to note is a user's permissions are set at login, so an end user must log out and back in after giving or removing a permission from their account for it to take effect.
 
 ## Things to improve
-* Allow custom per minute cost
-   * Slightly more complex, users should be able to have different prices for inbound/outbound, as they often cost different amounts
-* Selectable Date Ranges
+* Users should be able to have different prices for inbound/outbound, as they often cost different amounts
 * Count of currently registered devices
 * Count of current extensions
 * Count of disk space used by voicemail/recordings/stored faxes
