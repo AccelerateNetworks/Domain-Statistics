@@ -40,36 +40,64 @@ else {
 	echo "access denied";
 	exit;
 }
+//get http post variables and set them to php variables
+$costpermin = 0.0069;
+if (!empty($_POST["costpermin"])) {
+	$costpermin = $_POST["costpermin"];
+}
+$start_stamp_begin = date("Y-m-d", strtotime("-1 months"));
+if (!empty($_POST["start_stamp_begin"])) {
+	$start_stamp_begin = $_POST["start_stamp_begin"];
+}
+$start_stamp_end = date("Y-m-d");
+if (!empty($_POST["start_stamp_end"])) {
+	$start_stamp_end = $_POST["start_stamp_end"];
+}
 ?>
-<script type="text/javascript">
-</script>
-
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			<table width="100%" border="0" cellpadding="0" cellspacing="0">
-				<tr>
-					<td>
-						<tr>
-							<b>Domain Statistics</b>
-							<a href='export.php' class="btn" type="button" style="float: right;">Export as CSV</a>
-							<?php
-							//get http post variables and set them to php variables
-							if (count($_POST) > 0) {
-								//set variables from http values
-									$costpermin = check_str($_POST["costpermin"]);
-							} else {
-								$costpermin = 0.0069;
-							}
-							echo "<form method='post' name='frm' action=''>";
-							echo "	<input class='formfld' type='text' name='costpermin' maxlength='255' style='float: right;'' value=\"".escape($costpermin)."\" required='required'>";
-							echo "</form>"
-							?>
-							<p style="float: right;"><strong>Cost per minute:</strong></p>
-						</tr>
-					</td>
-				</tr>
-			</table>
+			<form id='frm_export' method='post' action='index.php'>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<tr>
+								<b>Domain Statistics</b>
+								<a href='export.php' class="btn" type="button" style="float: right;">Export as CSV</a>
+								<table border="0" cellspacing="0" cellpadding="0" width="100%">
+									<tr>
+										<td>
+											<table border="0" cellspacing="0" cellpadding="0" width="100%">
+												<tr>
+													<td class='vncell' valign='top' nowrap='nowrap'>Date Range</td>
+													<td class='vtable' align='right' style='position: relative; min-width: 250px;'>
+														<input type='text' class='formfld datepicker' style='min-width: 115px; width: 115px;' name='start_stamp_begin' placeholder="<?php echo $text['label-from']?>" value="<?php echo escape($start_stamp_begin);?>">
+														<input type='text' class='formfld datepicker' style='min-width: 115px; width: 115px;' name='start_stamp_end' placeholder="<?php echo $text['label-to']?>" value="<?php echo escape($start_stamp_end);?>">
+													</td>
+												</tr>
+											</table>
+										</td>
+										<td>
+											<table border="0" cellspacing="0" cellpadding="0" width="100%">
+												<tr>
+													<td class='vncell' valign='top' nowrap='nowrap'>Cost per minute</td>
+													<td class='vtable' align='right' style='position: relative; min-width: 125px;'>
+														<input class='formfld' type='text' name='costpermin' maxlength='255' value="<?php echo escape($costpermin);?>" required='required'>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</tr>
+							<td style="padding-top: 8px;" align="right" nowrap="">
+								<input class="btn" value="Reset" onclick="document.location.href='index.php';" type="button">
+								<input class="btn" name="submit" value="Search" type="submit">
+							</td>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -78,10 +106,10 @@ else {
 				<thead>
 					<tr>
 						<th>Domain</th>
-						<th>Local Minutes Used</th>
-						<th>Inbound Minutes Used</th>
+						<th>Local Minutes</th>
+						<th>Inbound Minutes</th>
 						<th>Outbound Minutes</th>
-						<th>Total Inbound/Outbound Minutes</th>
+						<th>Total External Minutes</th>
 						<th>Total Cost</th>
 					</tr>
 				</thead>
@@ -91,7 +119,7 @@ else {
 			foreach(do_sql($db, "SELECT domain_uuid, domain_name FROM v_domains;") as $domains) {
 				$domain_uuid = $domains['domain_uuid'];
 				$domain_calltime = array();
-				foreach(do_sql($db, "SELECT v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr WHERE v_xml_cdr.domain_uuid = '$domain_uuid' AND v_xml_cdr.start_stamp > date_trunc('day', NOW() - interval '1 month') GROUP BY v_xml_cdr.direction;") as $domainrow) {
+				foreach(do_sql($db, "SELECT v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr WHERE v_xml_cdr.domain_uuid = :domain_uuid AND v_xml_cdr.start_stamp > date(:start_stamp_begin) AND v_xml_cdr.start_stamp < date(:start_stamp_end) GROUP BY v_xml_cdr.direction;", array(":domain_uuid" => $domain_uuid, ":start_stamp_end" => $start_stamp_end, ":start_stamp_begin" => $start_stamp_begin)) as $domainrow) {
 					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
 					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
 					$domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
