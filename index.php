@@ -23,14 +23,15 @@ require_once "root.php";
 require_once "resources/require.php";
 require_once "resources/check_auth.php";
 
+// Check if we should export a CSV
 if ($_POST['submit'] == "Export as CSV") {
 	require_once "export.php";
 	exit;
 }
 
-require "utils.php";
+require_once "utils.php";
 
-// add multi-lingual support
+// add multi-lingual support (un-implemented)
 $language = new text;
 $text = $language->get();
 
@@ -68,7 +69,6 @@ if (!empty($_POST["start_stamp_end"])) {
 						<td>
 							<tr>
 								<b>Domain Statistics<?php echo $_POST['submit'];?></b>
-								<!-- <input type="button" class="btn" name="action" type="submit" name="submit" value="Export as CSV" onclick="document.location.href='index.php';" style="float: right;"> -->
 								<input class="btn" name="submit" value="Export as CSV" type="submit" style="float: right;">
 								<table border="0" cellspacing="0" cellpadding="0" width="100%">
 									<tr>

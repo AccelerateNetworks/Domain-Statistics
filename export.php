@@ -22,7 +22,7 @@ require_once "root.php";
 require_once "resources/require.php";
 require_once "resources/check_auth.php";
 
-require "utils.php";
+require_once "utils.php";
 //check permissions
 if (permission_exists('domain_statistics')) {
 	//access granted
