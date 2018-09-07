@@ -32,6 +32,20 @@ else {
 	exit;
 }
 
+//get http post variables and set them to php variables
+$costpermin = 0.0069;
+if (!empty($_POST["costpermin"])) {
+	$costpermin = $_POST["costpermin"];
+}
+$start_stamp_begin = date("Y-m-d", strtotime("-1 months"));
+if (!empty($_POST["start_stamp_begin"])) {
+	$start_stamp_begin = $_POST["start_stamp_begin"];
+}
+$start_stamp_end = date("Y-m-d");
+if (!empty($_POST["start_stamp_end"])) {
+	$start_stamp_end = $_POST["start_stamp_end"];
+}
+
 header("Content-Type: text/csv");
 header("Content-Disposition: attachment; filename=file.csv");
 
@@ -42,7 +56,7 @@ fputcsv($output, array("Domain", "Local Minutes Used", "Inbound Minutes Used", "
 foreach(do_sql($db, "SELECT domain_uuid, domain_name FROM v_domains;") as $domains) {
   $domain_uuid = $domains['domain_uuid'];
   $domain_calltime = array();
-  foreach(do_sql($db, "SELECT v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr WHERE v_xml_cdr.domain_uuid = '$domain_uuid' AND v_xml_cdr.start_stamp > date_trunc('day', NOW() - interval '1 month') GROUP BY v_xml_cdr.direction;") as $domainrow) {
+  foreach(do_sql($db, "SELECT v_xml_cdr.direction, SUM(v_xml_cdr.duration) FROM v_xml_cdr WHERE v_xml_cdr.domain_uuid = :domain_uuid AND v_xml_cdr.start_stamp > date(:start_stamp_begin) AND v_xml_cdr.start_stamp < date(:start_stamp_end) GROUP BY v_xml_cdr.direction;", array(":domain_uuid" => $domain_uuid, ":start_stamp_end" => $start_stamp_end, ":start_stamp_begin" => $start_stamp_begin)) as $domainrow) {
     $domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
     $domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
     $domain_calltime[$domainrow['direction']] = $domainrow['sum']/60;
