@@ -21,11 +21,6 @@ At this point, Apps => Domain Statistics should appear after you log out and log
 ## Notes about Permissions
 Thanks to the FusionPBX permissions model, one can easily make a restricted accounting user that has very limited ability to break things or get lost in say gateway config or other users voicemail. One key thing to note is a user's permissions are set at login, so an end user must log out and back in after giving or removing a permission from their account for it to take effect.
 
-## Software License Compatability
-From our understanding of clause [6.2. Effect of New Versions](https://www.mozilla.org/en-US/MPL/1.1/), MPL v1.1 provides an implicit license upgrade to newer versions of MPL, which [are compatible with AGPLv3](https://www.fsf.org/blogs/licensing/mpl-2.0-release). [National Wifi](http://www.nationalwi-fi.com/) paid for the development in their branch and to have it licensed under BSD.
-
-The only practical difference between these two branches is features (master has more features), and the requirement that if you modify the code in the master branch of this application and have other people using it, you provide your modifications (a pretty simple thing to comply with).
-
 ## Things to improve
 * Users should be able to have different prices for inbound/outbound, as they often cost different amounts
 * Count of currently registered devices
